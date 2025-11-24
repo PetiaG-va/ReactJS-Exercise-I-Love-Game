@@ -47,9 +47,7 @@ function App() {
 						</div>
 					</div>
 				</div>
-				<footer>
-					<p className="center-text">React Course Exercise @ SoftUni ™</p>
-				</footer>
+
 			</section>
 		</>
 
