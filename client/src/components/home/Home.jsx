@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react"
 import Game from "../game-card/GameCard.jsx";
+import request from "../../utils/requester.js";
 
 export default function Home() {
     const [latestGames, setLatestGames] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3030/jsonstore/games')
-            .then(response => response.json())
+       request('http://localhost:3030/jsonstore/games')
             .then(result => {
                 const resultGames = Object.values(result)
                     .sort((a, b) => b._createdOn - a._createdOn)
                     .slice(0, 3);
 
                 setLatestGames(resultGames)
-            });
+            })
+            .catch(error => {
+                alert(error.message)
+            })
     });
     return (
         <section id="welcome-world">
