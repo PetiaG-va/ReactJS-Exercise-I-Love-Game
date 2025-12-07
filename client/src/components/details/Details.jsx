@@ -77,7 +77,7 @@ export default function Details({
 
             </div>
 
-            <CreateComment user={user}/>
+            {user && <CreateComment user={user}/>}
         </section>
 
     )

@@ -29,7 +29,7 @@ export default function CreateComment({
                     onChange={changeHandler}
                     value={comment}
                     placeholder="Comment......"
-                    disabled={!user}
+                    disabled={!user} 
                 />
                 <input
                     className="btn submit"
