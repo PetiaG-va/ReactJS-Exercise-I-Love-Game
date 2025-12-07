@@ -21,7 +21,7 @@ export default function GameCreate() {
         // const result = await response.json();
         // });
 
-        const result = await request(`http://localhost:3030/jsonstore/games`, 'POST', data)
+        const result = await request(`/games`, 'POST', data)
 
         console.log(result);
         

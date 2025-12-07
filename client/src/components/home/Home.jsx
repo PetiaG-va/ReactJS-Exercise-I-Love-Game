@@ -6,7 +6,7 @@ export default function Home() {
     const [latestGames, setLatestGames] = useState([]);
 
     useEffect(() => {
-       request('http://localhost:3030/jsonstore/games')
+       request('/games')
             .then(result => {
                 const resultGames = Object.values(result)
                     .sort((a, b) => b._createdOn - a._createdOn)

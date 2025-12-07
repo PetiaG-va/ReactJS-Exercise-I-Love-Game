@@ -23,14 +23,13 @@ export default function GameEdit() {
     }
 
     useEffect(() => {
-        request(`http://localhost:3030/games/${gameId}`)
+        request(`/games/${gameId}`)
             .then(result => {
                 setValues(result);
             })
             .catch(error => {
                 alert(error.message);
             })
-    }, [gameId])
 
     return (
         <section id="edit-page">
