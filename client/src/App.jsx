@@ -34,6 +34,10 @@ function App() {
 		};
 
 		setUser(user);
+	};
+
+	const logoutHandler = () => {
+		setUser(null);
 	}
 
 	return (
@@ -47,6 +51,7 @@ function App() {
 				<Route path="/games/create" element={<GameCreate />} />
 				<Route path="/register" element={<Register onRegister={registerHandler} />} />
 				<Route path="/login" element={<Login onLogin={loginHandler} />} />
+				<Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
 			</Routes>
 
 			<Footer />
