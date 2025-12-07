@@ -20,12 +20,17 @@ export default function Register({
             return alert('Password missmatch');
         };
 
-        // TODO: Register User
-        onRegister(email);
+        try {
+            // Register User
+            onRegister(email, password);
+            
+            // Redirect to home page
+            navigate('/');
+        } catch (error) {
+            alert(error.message);
+        }
 
-        // TODO: Redirect to home page
 
-        navigate('/');
     }
 
     return (
