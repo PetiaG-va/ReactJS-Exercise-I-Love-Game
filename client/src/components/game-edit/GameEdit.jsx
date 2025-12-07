@@ -1,23 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import request from "../../utils/requester.js";
+
+const initialValues = {
+    title: '',
+    genre: '',
+    players: '',
+    date: '',
+    imageUrl: '',
+    summary: '',
+};
 
 export default function GameEdit() {
-    const initialValues = {
-        title: '',
-        genre: '',
-        players: '',
-        date: '',
-        imageUrl: '',
-        summary: '',
-    };
-
+    const { gameId } = useParams();
     const [values, setValues] = useState(initialValues);
 
     const changeHandler = (e) => {
         setValues(state => ({
             ...state,
             [e.target.name]: e.target.value
-        }))
+        }));
     }
+
+    useEffect(() => {
+        request(`http://localhost:3030/games/${gameId}`)
+            .then(result => {
+                setValues(result);
+            })
+            .catch(error => {
+                alert(error.message);
+            })
+    }, [gameId])
 
     return (
         <section id="edit-page">
