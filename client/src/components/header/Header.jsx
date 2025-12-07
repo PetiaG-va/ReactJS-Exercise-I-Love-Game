@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 
-export default function Header() {
+export default function Header({
+    user,
+}) {
     return (
         <header>
             {/* Navigation */}
