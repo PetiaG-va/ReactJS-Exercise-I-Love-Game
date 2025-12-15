@@ -13,24 +13,24 @@ import Logout from "./components/logout/Logout.jsx";
 import GameEdit from "./components/game-edit/GameEdit.jsx";
 
 function App() {
-	const [registeredUsers, setRegisteredUsers] = useState([]);
 	const [user, setUser] = useState(null);
 
-	const registerHandler = (email, password) => {
-		if (registeredUsers.some(user => user.email === email)) {
-			throw new Error("Username is taken!");
-		}
-
+	const registerHandler = async (email, password) => {
 		const newUser = { email, password };
-
-		setRegisteredUsers(state => [...state, newUser]);
-
+		// Register API call
+		await fetch('http://localhost:3030/users/register', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+			},
+			body: JSON.stringify(newUser),
+		}); 
+			
 		// Login user after register
 		setUser(newUser);
 	}
 
 	const loginHandler = (email, password) => {
-		const user = registeredUsers.find(user => user.email === email && user.password === password);
 
 		if (!user) {
 			throw new Error("Invalid email or password!");
