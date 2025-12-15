@@ -11,6 +11,7 @@ import Register from "./components/register/Register.jsx";
 import Login from "./components/login/Login.jsx";
 import Logout from "./components/logout/Logout.jsx";
 import GameEdit from "./components/game-edit/GameEdit.jsx";
+import UserContext from "./contexts/userContext.js";
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -41,10 +42,18 @@ function App() {
 
 	const logoutHandler = () => {
 		setUser(null);
+	};
+
+	const userContextValues = {
+		user,
+		isAuthenticated: !!user?.accessToken,
+		registerHandler,
+		loginHandler,
+		logoutHandler,
 	}
 
 	return (
-		<>
+		<UserContext.Provider value={userContextValues}>
 			<Header user={user} />
 
 			<Routes>
@@ -53,13 +62,13 @@ function App() {
 				<Route path="/games/:gameId/details" element={<Details user={user}/>} />
 				<Route path="/games/create" element={<GameCreate />} />
 				<Route path="/games/:gameId/edit/" element={<GameEdit />} />
-				<Route path="/register" element={<Register onRegister={registerHandler} />} />
+				<Route path="/register" element={<Register />} />
 				<Route path="/login" element={<Login onLogin={loginHandler} />} />
 				<Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
 			</Routes>
 
 			<Footer />
-		</>
+		</UserContext.Provider>
 
 	)
 }
