@@ -7,13 +7,13 @@ export default function Login() {
     const navigate = useNavigate();
     const { loginHandler } = useContext(UserContext);
 
-    const submitHandler = async ({ email, password }) => {
+    const submitHandler = ({ email, password }) => {
         if (!email || !password) {
             return alert('Email and password are required!');
         }
 
         try {
-            await loginHandler(email, password);
+            loginHandler(email, password);
 
             navigate('/');
 
@@ -39,7 +39,7 @@ export default function Login() {
                     <label htmlFor="email">Email</label>
                     <input type="email" id="email" {...register('email')} placeholder="Your Email" />
 
-                    <label htmlFor="login-pass">Password</label>
+                    <label htmlFor="login-password">Password</label>
                     <input type="password" id="login-password" {...register('password')} placeholder="Password" />
                     <input type="submit" className="btn submit" value="Login" />
                 </div>

@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router";
-import { useState } from "react";
+import { useContext } from "react";
 
 import Header from "./components/header/Header.jsx";
 import Footer from "./components/footer/Footer.jsx";
@@ -11,57 +11,28 @@ import Register from "./components/register/Register.jsx";
 import Login from "./components/login/Login.jsx";
 import Logout from "./components/logout/Logout.jsx";
 import GameEdit from "./components/game-edit/GameEdit.jsx";
-import UserContext from "./contexts/userContext.js";
-import useRequest from "./hooks/useRequest.js";
+import UserContext from "./contexts/userContext.jsx";
 
 function App() {
-	const [user, setUser] = useState(null);
-	const {request} = useRequest();
-
-	const registerHandler = async (email, password) => {
-		const newUser = { email, password };
-		// Register API call
-		const result = await request('/users/register', 'POST', newUser); 
-			
-		// Login user after register
-		setUser(result);
-	}
-
-	const loginHandler = async (email, password) => {
-		const result = await request('/users/login', 'POST', {email, password});
-
-		setUser(result);
-	};
-
-	const logoutHandler = () => {
-		setUser(null);
-	};
-
-	const userContextValues = {
-		user,
-		isAuthenticated: !!user?.accessToken,
-		registerHandler,
-		loginHandler,
-		logoutHandler,
-	}
+	const { user } = useContext(UserContext);
 
 	return (
-		<UserContext.Provider value={userContextValues}>
-			<Header user={user} />
+		<>
+			<Header />
 
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/games" element={<Catalog />} />
-				<Route path="/games/:gameId/details" element={<Details user={user}/>} />
+				<Route path="/games/:gameId/details" element={<Details user={user} />} />
 				<Route path="/games/create" element={<GameCreate />} />
 				<Route path="/games/:gameId/edit/" element={<GameEdit />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/login" element={<Login />} />
-				<Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
+				<Route path="/logout" element={<Logout />} />
 			</Routes>
 
 			<Footer />
-		</UserContext.Provider>
+		</>
 
 	)
 }
