@@ -5,7 +5,7 @@ import UserContext from "../../contexts/userContext.js";
 
 export default function Register() {
     const navigate = useNavigate();
-    const {registerHandler } = useContext(UserContext);
+    const { registerHandler } = useContext(UserContext);
 
     const registerSubmitHandler = async (values) => {
         const { email, password, confirmPassword } = values;
@@ -47,10 +47,10 @@ export default function Register() {
                     <label htmlFor="email">Email:</label>
                     <input type="email" id="email" {...register('email')} placeholder="Your Email" />
 
-                    <label htmlFor="pass">Password:</label>
+                    <label htmlFor="register-password">Password:</label>
                     <input type="password" id="register-password" {...register('password')} placeholder="Password" />
 
-                    <label htmlFor="con-pass">Confirm Password:</label>
+                    <label htmlFor="confirm-password">Confirm Password:</label>
                     <input type="password" id="confirm-password" {...register('confirmPassword')} placeholder="Repeat Password" />
 
                     <input className="btn submit" type="submit" value="Register" />
