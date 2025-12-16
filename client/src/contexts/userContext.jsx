@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import useRequest from "../hooks/useRequest.js";
 
 const UserContext = createContext({
@@ -15,12 +15,13 @@ const UserContext = createContext({
     logoutHandler() { },
 });
 
-export function UserProvider({children}) {
+export function UserProvider({ children }) {
     const [user, setUser] = useState(null);
     const { request } = useRequest();
 
     const registerHandler = async (email, password) => {
         const newUser = { email, password };
+
         // Register API call
         const result = await request('/users/register', 'POST', newUser);
 
@@ -34,8 +35,8 @@ export function UserProvider({children}) {
         setUser(result);
     };
 
-    const logoutHandler = async () => {
-        return await request('/users/logout')
+    const logoutHandler = () => {
+        return request('/users/logout', null, null, { accessToken: user.accessToken })
             .finally(() => setUser(null));
     };
 
@@ -46,10 +47,16 @@ export function UserProvider({children}) {
         loginHandler,
         logoutHandler,
     }
+
     return (
         <UserContext.Provider value={userContextValues}>
             {children}
         </UserContext.Provider>
     );
 }
+
+export function useUserContext() {
+    return useContext(UserContext);
+}
+
 export default UserContext;

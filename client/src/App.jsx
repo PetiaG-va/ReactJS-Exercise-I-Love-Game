@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router";
-import { useContext } from "react";
 
 import Header from "./components/header/Header.jsx";
 import Footer from "./components/footer/Footer.jsx";
@@ -11,10 +10,10 @@ import Register from "./components/register/Register.jsx";
 import Login from "./components/login/Login.jsx";
 import Logout from "./components/logout/Logout.jsx";
 import GameEdit from "./components/game-edit/GameEdit.jsx";
-import UserContext from "./contexts/userContext.jsx";
+import { useUserContext } from "./contexts/UserContext.jsx";
 
 function App() {
-	const { user } = useContext(UserContext);
+	const { user } = useUserContext();
 
 	return (
 		<>

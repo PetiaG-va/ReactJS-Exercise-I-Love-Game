@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router";
 import useForm from "../../hooks/useForm.js";
-import { useContext } from "react";
-import UserContext from "../../contexts/userContext.js";
+import { useUserContext } from "../../contexts/UserContext.jsx";
 
 export default function Login() {
     const navigate = useNavigate();
-    const { loginHandler } = useContext(UserContext);
+    const { loginHandler } = useUserContext();
 
     const submitHandler = ({ email, password }) => {
         if (!email || !password) {
